@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\ShippingBoxOptimizer;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,4 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'welcome')->name('home');
+Route::get('/', ShippingBoxOptimizer::class);
+// Route::view('/', 'welcome')->name('home');
