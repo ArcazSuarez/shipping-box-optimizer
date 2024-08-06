@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Services\ProductBoxOptimizerService;
+use App\Services\ProductOptimizerService;
 use App\Services\VolumetricSummationServices;
 use Livewire\Component;
 
@@ -31,10 +33,15 @@ class ShippingBoxOptimizer extends Component
     {
         $this->validate();
 
-        if (count($this->items) >= 10) {
-            $this->dispatchBrowserEvent('alert', ['message' => 'You can only add up to 10 items.']);
+        $totalQuantity = array_reduce($this->items, function ($carry, $item) {
+            return $carry + $item['quantity'];
+        }, 0);
+
+        if ($totalQuantity + $this->quantity > 10) {
+            $this->dispatch('alert', ['message' => 'You can only add up to 10 items.']);
             return;
         }
+
         $this->items[] = [
             'length' => (float) $this->length,
             'width' => (float) $this->width,
@@ -45,6 +52,14 @@ class ShippingBoxOptimizer extends Component
 
         $this->reset(['length', 'width', 'height', 'weight', 'quantity']);
         $this->dispatch('add-item');
+        $this->process();
+    }
+
+    public function removeItem($index)
+    {
+        unset($this->items[$index]);
+        $this->items = array_values($this->items);
+        $this->process();
     }
 
     public function process()
@@ -64,12 +79,9 @@ class ShippingBoxOptimizer extends Component
                 $totalWeight += $item['weight'];
             }
         }
-        $volumetricSummation = new VolumetricSummationServices;
-        // Example calculation logic (should be replaced with actual logic)
-
-        $res = $volumetricSummation->calculateOptimalBoxes($products);
+        $productOptimzer = new ProductOptimizerService;
+        $res = $productOptimzer->calculateOptimalBoxes($products);
         $this->boxAssignments = $res['boxAssignments'];
-
         $this->unfitProducts = $res['unfitProducts'];
     }
 

@@ -1,6 +1,17 @@
 <div x-data="{ focusOnLength() { this.$refs.length.focus() } }" @add-item.window="focusOnLength" class="space-y-6">
     <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">Shipping Box Optimizer</h1>
 
+    <div class="bg-white p-6 rounded-lg shadow-lg mt-6">
+        <h2 class="text-xl font-semibold mb-4">Predefined Boxes</h2>
+        <div id="predefinedBoxes" class="space-y-2">
+            <ul class="list-disc pl-6 text-gray-700">
+                @foreach ($predefinedBoxes as $index => $box)
+                    <li>{{ $box['name'] }}: {{ $box['length'] }}x{{ $box['width'] }}x{{ $box['height'] }} (Weight Limit: {{ $box['weight_limit'] }} kg)</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+
     <div class="bg-white p-6 rounded-lg shadow-lg">
         <h2 class="text-xl font-semibold mb-4">Add Item</h2>
         <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
@@ -66,6 +77,9 @@
                     </div>
                     <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
                         <p class="text-sm leading-6 text-gray-900">Quantity: {{ $item['quantity'] }}</p>
+                        <button wire:click="removeItem({{ $index }})" class="mt-2 inline-flex items-center justify-center px-3 py-1 border border-transparent text-xs font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                            Remove
+                        </button>
                     </div>
                 </li>
             @endforeach
@@ -142,20 +156,9 @@
         </ul>
     </div>
 
-    <div class="bg-white p-6 rounded-lg shadow-lg mt-6">
-        <h2 class="text-xl font-semibold mb-4">Predefined Boxes</h2>
-        <div id="predefinedBoxes" class="space-y-2">
-            <ul class="list-disc pl-6 text-gray-700">
-                @foreach ($predefinedBoxes as $index => $box)
-                    <li>{{ $box['name'] }}: {{ $box['length'] }}x{{ $box['width'] }}x{{ $box['height'] }} (Weight Limit: {{ $box['weight_limit'] }} kg)</li>
-                @endforeach
-            </ul>
-        </div>
-    </div>
-
     <script>
         document.addEventListener('alert', event => {
-            alert(event.detail.message);
+            alert(event.detail[0].message);
         });
     </script>
 </div>
