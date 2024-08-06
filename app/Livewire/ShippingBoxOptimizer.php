@@ -89,4 +89,68 @@ class ShippingBoxOptimizer extends Component
     {
         return view('livewire.shipping-box-optimizer')->layout('layouts.app');
     }
+
+    public function exampleGroup($option){
+        $this->reset();
+        if($option == 1){
+            $this->items = [
+                ['length' => 10, 'width' => 10, 'height' => 10, 'weight' => 1, 'quantity' => 1]
+            ];
+        }
+        if($option == 2){
+            $this->items = [
+                ['length' => 10, 'width' => 10, 'height' => 10, 'weight' => 1, 'quantity' => 1],
+                ['length' => 15, 'width' => 20, 'height' => 30, 'weight' => 0.5, 'quantity' => 1]
+            ];
+        }
+        if($option == 3){
+            for ($i = 0; $i < 10; $i++) {
+                $this->items[] = ['length' => 5, 'width' => 5, 'height' => 5, 'weight' => 3, 'quantity' => 1];
+            }
+        }
+        if($option == 4){
+            for ($i = 0; $i < 10; $i++) {
+                $this->items[] = ['length' => 30, 'width' => 20, 'height' => 25, 'weight' => 1, 'quantity' => 1];
+            }
+            $this->items[] = ['length' => 100, 'width' => 100, 'height' => 100, 'weight' => 1, 'quantity' => 1];
+            $this->items[] = ['length' => 15, 'width' => 10, 'height' => 5, 'weight' => 70, 'quantity' => 1];
+        }
+        if($option == 5){
+            for ($i = 0; $i < 5; $i++) {
+                $this->items[] = ['length' => 30, 'width' => 25, 'height' => 25, 'weight' => 5, 'quantity' => 1];
+            }
+        }
+        if($option == 6){
+            for ($i = 0; $i < 5; $i++) {
+                $this->items[] = ['length' => 2, 'width' => 2, 'height' => 2, 'weight' => 10, 'quantity' => 1];
+            }
+        }
+        if($option == 7){
+            $this->items = [
+                //Total is 4; Weight is 4 kgs
+                ['length' => 5, 'width' => 5, 'height' => 5, 'weight' => 1, 'quantity' => 1],
+                ['length' => 5, 'width' => 5, 'height' => 5, 'weight' => 1, 'quantity' => 1],
+                ['length' => 5, 'width' => 5, 'height' => 5, 'weight' => 1, 'quantity' => 1],
+                ['length' => 5, 'width' => 5, 'height' => 5, 'weight' => 1, 'quantity' => 1],
+                //Total is 5; Weight is 12 kgs
+                ['length' => 10, 'width' => 10, 'height' => 10, 'weight' => 2, 'quantity' => 1],
+                ['length' => 10, 'width' => 10, 'height' => 10, 'weight' => 2, 'quantity' => 2],
+                ['length' => 10, 'width' => 10, 'height' => 10, 'weight' => 2, 'quantity' => 2],
+                //Total is 5; Weight is 5 kgs
+                ['length' => 20, 'width' => 15, 'height' => 10, 'weight' => 1, 'quantity' => 2],
+                ['length' => 20, 'width' => 15, 'height' => 10, 'weight' => 1, 'quantity' => 1],
+                ['length' => 20, 'width' => 15, 'height' => 10, 'weight' => 1, 'quantity' => 1],
+                ['length' => 20, 'width' => 15, 'height' => 10, 'weight' => 1, 'quantity' => 1],
+                //Total is 4; Weight is 48 kgs
+                ['length' => 30, 'width' => 25, 'height' => 20, 'weight' => 8, 'quantity' => 1],
+                ['length' => 30, 'width' => 25, 'height' => 20, 'weight' => 8, 'quantity' => 1],
+                ['length' => 30, 'width' => 25, 'height' => 20, 'weight' => 8, 'quantity' => 2],
+                ['length' => 30, 'width' => 25, 'height' => 20, 'weight' => 8, 'quantity' => 2],
+                //Total is 2; Weight is 120 kgs
+                ['length' => 70, 'width' => 60, 'height' => 50, 'weight' => 60, 'quantity' => 1],
+                ['length' => 70, 'width' => 60, 'height' => 50, 'weight' => 60, 'quantity' => 1],
+            ];
+        }
+        $this->process();
+    }
 }

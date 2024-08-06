@@ -91,6 +91,13 @@
             Calculate Optimal Boxes
         </button>
     </div>
+    <div class="mt-6">
+        @for ($i = 1; $i <= 7; $i++)
+            <button wire:click="exampleGroup({{$i}})" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                Sample Result #{{$i}}
+            </button>
+        @endfor
+    </div>
 
     <div class="bg-white p-6 rounded-lg shadow-lg mt-6">
         <h2 class="text-xl font-semibold mb-4">Optimal Boxes</h2>
